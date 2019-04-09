@@ -1,2 +1,6 @@
 # Simon
-This is a game created with the AIE bootstrap
+
+**To-Do:**
+- Record HighScore in text/binary file
+- Add leveling system
+- make esc key return to main menu
