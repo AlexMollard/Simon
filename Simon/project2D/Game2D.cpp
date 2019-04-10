@@ -49,8 +49,8 @@ void Game2D::Update(float deltaTime)
 	// Exit the application if escape is pressed.
 	if (input->IsKeyDown(aie::INPUT_KEY_ESCAPE))
 	{
-		aie::Application* application = aie::Application::GetInstance();
-		application->Quit();
+		m_Player->NewGame();
+		play = false;
 	}
 
 	if (!play)
