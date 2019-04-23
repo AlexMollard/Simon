@@ -3,6 +3,7 @@
 **To-Do:**
 - Record HighScore in text/binary file.
 - Add leveling system.
+- Commenting and tidying up
 - ~~Make esc key return to main menu~~
 
 **Bugs/Glitches**
