@@ -19,7 +19,6 @@ Colors::~Colors()
 
 }
 
-
 void Colors::Update(float deltaTime, float timer)
 {
 

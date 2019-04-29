@@ -138,122 +138,121 @@ bool Player::UsersTurn(float Time)
 	//Increase timer
 	clickCounter += 1.0f * Time;
 
-	//Hide player turn
-	{	
-		//RED
-		if (input->WasMouseButtonPressed(0) && (input->GetMouseX() >= _Red->GetX() - (_Red->GetSize() / 2) && input->GetMouseX() <= _Red->GetX() + (_Red->GetSize() / 2) && input->GetMouseY() >= _Red->GetY() - (_Red->GetSize() / 2) && input->GetMouseY() <= _Red->GetY() + (_Red->GetSize() / 2)))
-		{
-			//Changing _Red squares varibles
-			_Red->SetOpacity(1.0f);
-			_Red->SetSize(145);
+#pragma region Player-Turn
+	//RED
+	if (input->WasMouseButtonPressed(0) && (input->GetMouseX() >= _Red->GetX() - (_Red->GetSize() / 2) && input->GetMouseX() <= _Red->GetX() + (_Red->GetSize() / 2) && input->GetMouseY() >= _Red->GetY() - (_Red->GetSize() / 2) && input->GetMouseY() <= _Red->GetY() + (_Red->GetSize() / 2)))
+	{
+		//Changing _Red squares varibles
+		_Red->SetOpacity(1.0f);
+		_Red->SetSize(145);
 
-			//Resetting timer
-			clickCounter = 0.0f;
+		//Resetting timer
+		clickCounter = 0.0f;
 
-			//Adding players input
-			playerOrder.PushBack(0);
+		//Adding players input
+		playerOrder.PushBack(0);
 
-			//Detect if player has lost
-			if (simonOrder[currentPlayer] != playerOrder[currentPlayer])
-				Lost();
+		//Detect if player has lost
+		if (simonOrder[currentPlayer] != playerOrder[currentPlayer])
+			Lost();
 
-			//Add to players turn number
-			currentPlayer++;
+		//Add to players turn number
+		currentPlayer++;
 
-		}
-		//Set squares back to normal after user input
-		else if (clickCounter > 0.2 && clickCounter < 0.3)
-		{
-			//Changing _Red squares varibles
-			_Red->SetSize(150);
-			_Red->SetOpacity(0.5f);
-		}
-
-		//GREEN
-		if (input->WasMouseButtonPressed(0) && (input->GetMouseX() >= _Green->GetX() - (_Green->GetSize() / 2) && input->GetMouseX() <= _Green->GetX() + (_Green->GetSize() / 2) && input->GetMouseY() >= _Green->GetY() - (_Green->GetSize() / 2) && input->GetMouseY() <= _Green->GetY() + (_Green->GetSize() / 2)))
-		{
-			//Changing _Green squares varibles
-			_Green->SetOpacity(1.0f);
-			_Green->SetSize(145);
-
-			//Reset timer
-			clickCounter = 0.0f;
-
-			//Adding players input
-			playerOrder.PushBack(1);
-
-			//Detect if player has lost
-			if (simonOrder[currentPlayer] != playerOrder[currentPlayer])
-				Lost();
-
-			//Add to players turn number
-			currentPlayer++;
-
-		}
-		//Set squares back to normal after user input
-		else if (clickCounter > 0.2 && clickCounter < 0.3)
-		{
-			//Changing _Green squares varibles
-			_Green->SetSize(150);
-			_Green->SetOpacity(0.5f);
-		}
-
-		//BLUE
-		if (input->WasMouseButtonPressed(0) && (input->GetMouseX() >= _Blue->GetX() - (_Blue->GetSize() / 2) && input->GetMouseX() <= _Blue->GetX() + (_Red->GetSize() / 2) && input->GetMouseY() >= _Blue->GetY() - (_Blue->GetSize() / 2) && input->GetMouseY() <= _Blue->GetY() + (_Blue->GetSize() / 2)))
-		{
-			//Changing _Blue squares varibles
-			_Blue->SetOpacity(1.0f);
-			_Blue->SetSize(145);
-
-			//Reset timer
-			clickCounter = 0.0f;
-
-			//Adding players input
-			playerOrder.PushBack(2);
-
-			//Detect if player has lost
-			if (simonOrder[currentPlayer] != playerOrder[currentPlayer])
-				Lost();
-
-			//Add to players turn number
-			currentPlayer++;
-		}
-		//Set squares back to normal after user input
-		else if (clickCounter > 0.2 && clickCounter < 0.3)
-		{
-			//Changing _Blue squares varibles
-			_Blue->SetSize(150);
-			_Blue->SetOpacity(0.5f);
-		}
-
-		//PURPLE
-		if (input->WasMouseButtonPressed(0) && (input->GetMouseX() >= _Purple->GetX() - (_Purple->GetSize() / 2) && input->GetMouseX() <= _Purple->GetX() + (_Purple->GetSize() / 2) && input->GetMouseY() >= _Purple->GetY() - (_Purple->GetSize() / 2) && input->GetMouseY() <= _Purple->GetY() + (_Purple->GetSize() / 2)))
-		{
-			//Changing _Purple squares varibles
-			_Purple->SetOpacity(1.0f);
-			_Purple->SetSize(145);
-
-			//Resetting timer
-			clickCounter = 0.0f;
-
-			//Adding players input
-			playerOrder.PushBack(3);
-
-			//Detect if player has lost
-			if (simonOrder[currentPlayer] != playerOrder[currentPlayer])
-				Lost();
-
-			//Add to players turn number
-			currentPlayer++;
-		}
-		//Set squares back to normal after user input
-		else if (clickCounter > 0.2 && clickCounter < 0.3)
-		{
-			//Changing _Red squares varibles
-			_Purple->SetSize(150);
-			_Purple->SetOpacity(0.5f);
-		}
 	}
+	//Set squares back to normal after user input
+	else if (clickCounter > 0.2 && clickCounter < 0.3)
+	{
+		//Changing _Red squares varibles
+		_Red->SetSize(150);
+		_Red->SetOpacity(0.5f);
+	}
+
+	//GREEN
+	if (input->WasMouseButtonPressed(0) && (input->GetMouseX() >= _Green->GetX() - (_Green->GetSize() / 2) && input->GetMouseX() <= _Green->GetX() + (_Green->GetSize() / 2) && input->GetMouseY() >= _Green->GetY() - (_Green->GetSize() / 2) && input->GetMouseY() <= _Green->GetY() + (_Green->GetSize() / 2)))
+	{
+		//Changing _Green squares varibles
+		_Green->SetOpacity(1.0f);
+		_Green->SetSize(145);
+
+		//Reset timer
+		clickCounter = 0.0f;
+
+		//Adding players input
+		playerOrder.PushBack(1);
+
+		//Detect if player has lost
+		if (simonOrder[currentPlayer] != playerOrder[currentPlayer])
+			Lost();
+
+		//Add to players turn number
+		currentPlayer++;
+
+	}
+	//Set squares back to normal after user input
+	else if (clickCounter > 0.2 && clickCounter < 0.3)
+	{
+		//Changing _Green squares varibles
+		_Green->SetSize(150);
+		_Green->SetOpacity(0.5f);
+	}
+
+	//BLUE
+	if (input->WasMouseButtonPressed(0) && (input->GetMouseX() >= _Blue->GetX() - (_Blue->GetSize() / 2) && input->GetMouseX() <= _Blue->GetX() + (_Red->GetSize() / 2) && input->GetMouseY() >= _Blue->GetY() - (_Blue->GetSize() / 2) && input->GetMouseY() <= _Blue->GetY() + (_Blue->GetSize() / 2)))
+	{
+		//Changing _Blue squares varibles
+		_Blue->SetOpacity(1.0f);
+		_Blue->SetSize(145);
+
+		//Reset timer
+		clickCounter = 0.0f;
+
+		//Adding players input
+		playerOrder.PushBack(2);
+
+		//Detect if player has lost
+		if (simonOrder[currentPlayer] != playerOrder[currentPlayer])
+			Lost();
+
+		//Add to players turn number
+		currentPlayer++;
+	}
+	//Set squares back to normal after user input
+	else if (clickCounter > 0.2 && clickCounter < 0.3)
+	{
+		//Changing _Blue squares varibles
+		_Blue->SetSize(150);
+		_Blue->SetOpacity(0.5f);
+	}
+
+	//PURPLE
+	if (input->WasMouseButtonPressed(0) && (input->GetMouseX() >= _Purple->GetX() - (_Purple->GetSize() / 2) && input->GetMouseX() <= _Purple->GetX() + (_Purple->GetSize() / 2) && input->GetMouseY() >= _Purple->GetY() - (_Purple->GetSize() / 2) && input->GetMouseY() <= _Purple->GetY() + (_Purple->GetSize() / 2)))
+	{
+		//Changing _Purple squares varibles
+		_Purple->SetOpacity(1.0f);
+		_Purple->SetSize(145);
+
+		//Resetting timer
+		clickCounter = 0.0f;
+
+		//Adding players input
+		playerOrder.PushBack(3);
+
+		//Detect if player has lost
+		if (simonOrder[currentPlayer] != playerOrder[currentPlayer])
+			Lost();
+
+		//Add to players turn number
+		currentPlayer++;
+	}
+	//Set squares back to normal after user input
+	else if (clickCounter > 0.2 && clickCounter < 0.3)
+	{
+		//Changing _Red squares varibles
+		_Purple->SetSize(150);
+		_Purple->SetOpacity(0.5f);
+	}
+#pragma endregion
 
 
 
