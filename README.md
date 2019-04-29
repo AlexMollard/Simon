@@ -12,3 +12,4 @@
   ~~[Should be fixed if lose detection is fixed]~~
 - ~~Lost detection only works first and last move.~~
 - If you click a colour quickly after losing you add a extra point to your score.
+- (This is due to the player clicker before the timer ends.)
