@@ -6,34 +6,35 @@
 class Colors
 {
 public:
-	Colors() {};
-	Colors(float x1, float y1, float size, float R, float G, float B);
-	~Colors();
+	Colors(float x1, float y1, float size, float R, float G, float B);	//Color square Constructor
 
-	void Update(float deltaTime, float timer);
-	void Draw(aie::Renderer2D* renderer, float width, float height);
+	void Draw(aie::Renderer2D* renderer, float width, float height);	//Draw color square  
 
+	//Functions to change and get varibles
+
+	//Opacity
 	float GetOpacity();
 	void SetOpacity(float newOpacity);
 
+	//Postion
 	float GetX();
 	float GetY();
 
+	//Size
 	float GetSize();
 	void SetSize(float size);
 
-	float counter;
-	float opacity;
+protected:
+	//Window Size
+	float screenWidth;		//Window Width
+	float screenHeight;		//Window Height
 
-	aie::Texture* m_texture;
-
-	float screenWidth;
-	float screenHeight;
-
-	float _posX1;
-	float _posY1;
-	float _size;
-	float _R;
-	float _G;
-	float _B;
+	//Square Draw Varibles
+	float opacity;			//Square opacity
+	float _posX1;			//X postion of square
+	float _posY1;			//Y postion of square
+	float _size;			//Size of square
+	float _R;				//Red value of square
+	float _G;				//Green value of square
+	float _B;				//Blue value of square
 };

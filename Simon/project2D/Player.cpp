@@ -8,20 +8,10 @@ using namespace std;
 
 Player::Player(int width, int height)
 {
-	//Get custom royalty free font
+	// Get custom royalty free font
 	m_font = new aie::Font("./font/goodTimes.ttf", 24);
 
-	//initializing variables
-	counter = 0.0f;
-	clickCounter = 1.0f;
-	current = 0;
-	currentPlayer = 0;
-	round = 0;
-	lose = 0;
-	rOpacity = 1.0f;
-	highScore = 0;
-
-	//Simons first turn
+	// Simons first turn
 	simonOrder.PushBack(rand()%4);
 
 	// Create a player object.
@@ -34,7 +24,7 @@ Player::Player(int width, int height)
 
 Player::~Player()
 {
-	//Destruct all objects
+	// Destruct all objects
 	delete _Red;
 	delete _Green;
 	delete _Blue;
@@ -42,59 +32,53 @@ Player::~Player()
 	delete m_font;
 }
 
-
-//----------
-//RUNS EVERY FRAME
-//----------
 void Player::Update(float deltaTime)
 {
-	//Allow user input
+#pragma region Input-Prepare
+	// Prepare application for user input
 	aie::Input* input = aie::Input::GetInstance();
+#pragma endregion
 
-	//Debug to get simons guesses
-	if (input->IsKeyDown(aie::INPUT_KEY_SPACE))
-	{
-		simonOrder.DisplayAll();
-	}
-	 
-	//----------------
-	//GAME LOOP
-	//----------------
-
+#pragma region Game-Loop
+	// Update highscore if players current score is larger then the highscore
 	if (highScore < playerOrder.GetUsedData())
 	{
 		highScore = playerOrder.GetUsedData();
 	}
 
+	// Check if player has lost
 	if (!lose)
 	{
+		// Check whos turn it is
 		if (current != simonOrder.GetUsedData())
 		{
-			SimonsTurn(deltaTime, current);
+			SimonsTurn(deltaTime, current);		 // Simon's turn
 		}
 		else if (current >= simonOrder.GetUsedData())
 		{
-			UsersTurn(deltaTime);
+			UsersTurn(deltaTime);				// Player's turn
 		}
 	}
 	else
 	{
+		// If player has lost go to restart scene
 		Restart();
 	}
+#pragma endregion
 }
 
-//--------------------
-//Displays simons turn
-//--------------------
 void Player::SimonsTurn(float Time,int index)
 {
-	//Timer
+#pragma region Display-Simons-Turn
+	// Timer
 	counter += 4.0f * Time;
 
-	//Delay
+	// Delay
 	if (counter > 1.0f)
 	{
-		//Switch to get simons array elements and display what he has choosen
+		//-----------------------------------------------------------------------
+		// Get Simons array element in order and makes the square he choose flash.
+		//-----------------------------------------------------------------------
 			switch (simonOrder[index])
 			{
 			case 0:
@@ -113,32 +97,38 @@ void Player::SimonsTurn(float Time,int index)
 				break;
 			}
 	}
-	//Delay so that the color squares dont flash for 1 frame
+#pragma endregion
+
+#pragma region Reset-Simons-Turn
+	// Delay so that the color squares dont flash for 1 frame and stay for around a second
 	if (counter > 2.0f)
 	{
-		//Increase simons array index by 1
+		// Increase simons array index by 1
 		current++;
 
-		//Resets timer
+		// Resets simon's timer
 		counter = 0.0f;
 
-		//Reset all color squares opacity
+		// Reset all color squares opacity
 		_Red->SetOpacity(0.5f);
 		_Green->SetOpacity(0.5f);
 		_Blue->SetOpacity(0.5f);
 		_Purple->SetOpacity(0.5f);
 	}
+#pragma endregion
 }
 
-
-bool Player::UsersTurn(float Time)
+void Player::UsersTurn(float Time)
 {
+#pragma region Input-Prepare
+	// Prepare application for user input
 	aie::Input* input = aie::Input::GetInstance();
+#pragma endregion
 
-	//Increase timer
+#pragma region Players-Turn
+	// Increase timer
 	clickCounter += 1.0f * Time;
 
-#pragma region Player-Turn
 	//RED
 	if (input->WasMouseButtonPressed(0) && (input->GetMouseX() >= _Red->GetX() - (_Red->GetSize() / 2) && input->GetMouseX() <= _Red->GetX() + (_Red->GetSize() / 2) && input->GetMouseY() >= _Red->GetY() - (_Red->GetSize() / 2) && input->GetMouseY() <= _Red->GetY() + (_Red->GetSize() / 2)))
 	{
@@ -254,18 +244,20 @@ bool Player::UsersTurn(float Time)
 	}
 #pragma endregion
 
-
-
+#pragma region Lose-Detection
+	// If players turn is finished
 	if (currentPlayer >= current && clickCounter > 0.2 && clickCounter < 0.3)
 	{
 		for (int i = 0; i < playerOrder.GetUsedData(); i++)
 		{
+			// Check if player and simon have same array elements
 			if (playerOrder[i] == simonOrder[i])
 			{
 				round++;
 			}
 		}
 
+		// If simon and player have same amount of element add another to simons
 		if (round == simonOrder.GetUsedData())
 		{
 			//Create simons next color
@@ -277,41 +269,44 @@ bool Player::UsersTurn(float Time)
 			Lost();
 		}
 
+		//Reset players turn for the next round
 		round = 0;
 		current = 0;
 		currentPlayer = 0;
 		playerOrder.clear();
 	}
-
-
-	return false;
+#pragma endregion
 }
 
 void Player::Lost()
 {
-	//Lose equals true so that game loop is stopped
+#pragma region Reset-squares-color-and-opacity
+	// Lose equals true so that game loop is stopped
 	lose = true;
 
-	//Set all color square opacity to full
-	//Opacity
+	// Set all color square opacity to 100%
 	_Red->SetOpacity(1.0f);
 	_Green->SetOpacity(1.0f);
 	_Blue->SetOpacity(1.0f);
 	_Purple->SetOpacity(1.0f);
 
-	//Size
+	// Set all color square size to original size
 	_Red->SetSize(150);
 	_Green->SetSize(150);
 	_Blue->SetSize(150);
 	_Purple->SetSize(150);
+#pragma endregion
 }
 
 void Player::Restart()
 {
-	//Allow user input
+#pragma region Input-Prepare
+	// Prepare application for user input
 	aie::Input* input = aie::Input::GetInstance();
+#pragma endregion
 
-	//Restart button
+#pragma region Restart-Button
+	// If Restart button is hovered over
 	if (input->GetMouseX() <= _Red->GetX() + 85 + 125 && input->GetMouseX() >= _Red->GetX() + 85 - 125 && input->GetMouseY() <= _Red->GetY() - 280 + 25 && input->GetMouseY() >= _Red->GetY() - 280 - 25)
 	{
 		//Change opacity of restart button
@@ -328,52 +323,58 @@ void Player::Restart()
 		//When restart button isnt clicked reset opacity
 		rOpacity = 1.0f;
 	}
+#pragma endregion
 }
 
 void Player::NewGame()
 {
-	//initializing variables
+#pragma region Reset-Game
+	// Clear simons and players arrays
 	simonOrder.clear();
 	playerOrder.clear();
 
+	// Add simons first turn
 	simonOrder.PushFront(rand() % 4);
 
+	// Reset varibles
 	current = 0;
 	currentPlayer = 0;
 	round = 0;
 	lose = 0;
 	lose = false;
 
-
-	//Set all color square opacity to full
+	// Set all color square opacity to full
 	_Red->SetOpacity(0.5f);
 	_Green->SetOpacity(0.5f);
 	_Blue->SetOpacity(0.5f);
 	_Purple->SetOpacity(0.5f);
 
-	//Size
+	// Set all color square size to previous size
 	_Red->SetSize(150);
 	_Green->SetSize(150);
 	_Blue->SetSize(150);
 	_Purple->SetSize(150);
+#pragma endregion
 }
 
 void Player::Draw(aie::Renderer2D* renderer, float width, float height)
 {
-	//Title draw
-	renderer->DrawText(m_font, "SIMON", _Red->GetX() - 75, _Red->GetY()+120);
-	renderer->DrawBox(_Red->GetX() - 75, _Red->GetY()+120, 1, 75);
-	
-	//Convert simonOrder array size to char* from int
+#pragma region Draw-Game
+	// Convert simonOrder array size to char* from int
 	char roundNum[32];
 	char highScoreNum[32];
 	sprintf(roundNum, "%d", simonOrder.GetUsedData());
 	sprintf(highScoreNum, "%d", highScore);
 
-	//Round Draw
+	// Draw title
+	renderer->DrawText(m_font, "SIMON", _Red->GetX() - 75, _Red->GetY()+120);
+	renderer->DrawBox(_Red->GetX() - 75, _Red->GetY()+120, 1, 75);
+	
+	// Draw Highscore
 	renderer->DrawText(m_font, highScoreNum, _Red->GetX() + 82, _Red->GetY() + 200);
 	renderer->DrawText(m_font, "HighScore:", _Red->GetX() + 20, _Red->GetY() + 220);
 
+	// Draw Round
 	renderer->DrawText(m_font, "Round:", width / 2 + 20, _Red->GetY() + 120);
 	renderer->DrawText(m_font, roundNum, width / 2 + 130, _Red->GetY() + 120);
 
@@ -382,8 +383,10 @@ void Player::Draw(aie::Renderer2D* renderer, float width, float height)
 	_Green->Draw(renderer, width, height);
 	_Blue->Draw(renderer, width, height);
 	_Purple->Draw(renderer, width, height);
+#pragma endregion
 
-	//If player has lost draw You Lost
+#pragma region Lose-Scene
+	// If player has lost draw You Lost
 	if (lose)
 	{
 		//Black box
@@ -395,7 +398,6 @@ void Player::Draw(aie::Renderer2D* renderer, float width, float height)
 		renderer->DrawText(m_font, "YOU LOST", width/2 - 65, height/2);
 
 		//Restart botton
-
 		//Button
 		renderer->SetRenderColour(1, 1, 1, rOpacity);
 		renderer->DrawBox(_Red->GetX() + 85, _Red->GetY() - 280, 250, 50);
@@ -404,5 +406,5 @@ void Player::Draw(aie::Renderer2D* renderer, float width, float height)
 		renderer->SetRenderColour(0.07, 0.06, 0.07);
 		renderer->DrawText(m_font, "Restart", _Red->GetX() + 28, _Red->GetY() - 285);
 	}
-
+#pragma endregion
 }
