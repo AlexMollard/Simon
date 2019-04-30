@@ -34,6 +34,9 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
+
+	cout << deltaTime << endl;
+
 #pragma region Input-Prepare
 	// Prepare application for user input
 	aie::Input* input = aie::Input::GetInstance();
