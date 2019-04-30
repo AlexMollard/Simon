@@ -2,7 +2,7 @@
 
 **To-Do:**
 - Record HighScore in text/binary file.
-- Add leveling system.
+- Add timing mechanic to give the player a sense of urgancy.
 - ~~Commenting and tidying up~~
 - ~~Make esc key return to main menu~~
 
@@ -12,4 +12,4 @@
   ~~[Should be fixed if lose detection is fixed]~~
 - ~~Lost detection only works first and last move.~~
 - If you click a colour quickly after losing you add a extra point to your score.
-- (This is due to the player clicker before the timer ends.)
+- (This is due to the player clicking the correct square twice before the timer ends.)
