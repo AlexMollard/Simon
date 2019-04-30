@@ -1,7 +1,6 @@
 # Simon
 
 **To-Do:**
-- Record HighScore in text/binary file.
 - Add timing mechanic to give the player a sense of urgancy.
 - ~~Commenting and tidying up~~
 - ~~Make esc key return to main menu~~
