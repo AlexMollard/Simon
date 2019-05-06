@@ -22,7 +22,9 @@ Game2D::Game2D(const char* title, int width, int height, bool fullscreen) : Game
 	// Set game to not playing
 	play = false;
 
-	//Asert to debug if player is nullptr
+	//Check pointers
+	assert(m_2dRenderer);
+	assert(m_font);
 	assert(m_Player);
 }
 
@@ -39,6 +41,9 @@ Game2D::~Game2D()
 
 void Game2D::Update(float deltaTime)
 {
+	//Check pointers
+	assert(m_Player);
+
 	if (play)
 	{
 		// Update the player.
@@ -47,6 +52,9 @@ void Game2D::Update(float deltaTime)
 
 	// Prepare bootstrap for input
 	aie::Input* input = aie::Input::GetInstance();
+
+	//Check pointers
+	assert(input);
 
 	// Exit to the menu if escape key is pressed.
 	if (input->IsKeyDown(aie::INPUT_KEY_ESCAPE))
@@ -99,8 +107,15 @@ void Game2D::Update(float deltaTime)
 
 void Game2D::QuickMenu(aie::Renderer2D* renderer)
 {
+	//Check pointers
+	assert(m_2dRenderer);
+	assert(m_font);
+
 	// Prepare application for input from user
 	aie::Input* input = aie::Input::GetInstance();
+
+	//Check pointers
+	assert(input);
 
 	// If mouse is hovered over quick menu draw
 	if (input->GetMouseX() <= windowWidth / 2 - 150 + 20 &&
@@ -136,6 +151,11 @@ void Game2D::QuickMenu(aie::Renderer2D* renderer)
 
 void Game2D::Draw()
 {
+	//Check pointers
+	assert(m_2dRenderer);
+	assert(m_font);
+	assert(m_Player);
+
 	// Needed to get instance of application
 	aie::Application* application = aie::Application::GetInstance();
 

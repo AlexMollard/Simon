@@ -3,6 +3,7 @@
 #include "Font.h"
 #include <iostream>
 #include <random>
+#include <assert.h>
 
 using namespace std;
 
@@ -20,6 +21,12 @@ Player::Player(int width, int height)
 	_Blue = new Colors(85, 85, 150.0f, 0.3f, 0.49f, 0.55f);
 	_Purple = new Colors(-85, 85, 150.0f, 0.64f, 0.16f, 0.93f);
 
+	//Checking pointers
+	assert(m_font);
+	assert(_Red);
+	assert(_Green);
+	assert(_Blue);
+	assert(_Purple);
 }
 
 Player::~Player()
@@ -37,6 +44,9 @@ void Player::Update(float deltaTime)
 #pragma region Input-Prepare
 	// Prepare application for user input
 	aie::Input* input = aie::Input::GetInstance();
+
+	//Checking pointers
+	assert(input);
 #pragma endregion
 
 #pragma region Game-Loop
@@ -123,6 +133,9 @@ void Player::UsersTurn(float Time)
 #pragma region Input-Prepare
 	// Prepare application for user input
 	aie::Input* input = aie::Input::GetInstance();
+
+	//Checking pointers
+	assert(input);
 #pragma endregion
 
 #pragma region Players-Turn
@@ -303,6 +316,9 @@ void Player::Restart()
 #pragma region Input-Prepare
 	// Prepare application for user input
 	aie::Input* input = aie::Input::GetInstance();
+
+	//Checking pointers
+	assert(input);
 #pragma endregion
 
 #pragma region Restart-Button
