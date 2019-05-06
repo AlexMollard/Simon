@@ -6,7 +6,7 @@
 #include "Input.h"
 #include "Player.h"
 #include <iostream>
-
+#include <assert.h>
 
 Game2D::Game2D(const char* title, int width, int height, bool fullscreen) : Game(title, width, height, fullscreen)
 {
@@ -21,6 +21,9 @@ Game2D::Game2D(const char* title, int width, int height, bool fullscreen) : Game
 
 	// Set game to not playing
 	play = false;
+
+	//Asert to debug if player is nullptr
+	assert(m_Player);
 }
 
 Game2D::~Game2D()

@@ -1,8 +1,8 @@
 #include "Player.h"
 #include "Input.h"
+#include "Font.h"
 #include <iostream>
 #include <random>
-#include "Font.h"
 
 using namespace std;
 
@@ -34,9 +34,6 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
-
-	cout << deltaTime << endl;
-
 #pragma region Input-Prepare
 	// Prepare application for user input
 	aie::Input* input = aie::Input::GetInstance();
